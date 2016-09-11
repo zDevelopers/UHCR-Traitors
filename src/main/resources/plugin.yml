@@ -1,0 +1,10 @@
+name: UHCR_Traitors
+version: 1.0
+main: eu.carrade.amaury.UHCRTraitors.UHCRTraitors
+
+description: UHCReloaded plugin adding traitors to the game
+author: Amaury Carrade
+
+commands:
+    traitors:
+        description: Base command for traitors
