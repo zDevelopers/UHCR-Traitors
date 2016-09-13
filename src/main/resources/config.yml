@@ -1,0 +1,35 @@
+# UHCReloaded configuration tip: you should avoid dark red teams, as traitors will be displayed using this color
+# when revealed.
+
+traitors:
+    # The amount of traitors to randomly pick. If zero, the amount of teams will be used.
+    # You can change this value on the fly before the beginning of the game using the command
+    # /traitors count <amount>.
+    # If this count is less than or equals to the number of teams, each team will have no or
+    # one traitor, randomly. Else, if this count is higher than the teams count, all teams will
+    # have one traitor, then some teams will be selected to have another traitor, and a third one
+    # if the count is more than twice the amount of teams, etc. This avoids one team being randomly
+    # full of traitors while other being traitorsless.
+    count: 0
+
+    # The players will know they are traitors after this delay (in minutes).
+    notifyAfter: 30
+
+    # In the traitor chat, un-revealed traitors are anonymous, and a fake name is used to represent them.
+    # You can here type the fake names to be used. If this list is empty, numbers will be used.
+    fakeNames:
+        - Wenck
+        - Rommel
+        - Guderian
+        - Patton
+        - Eisenhower
+        - Bradley
+        - Montgomery
+        - Leclerc
+        - Juin
+        - Kieffer
+        - D'Astier de La Vigerie
+        - Kœnig
+        - Raginis
+        - Anders
+        - Sikorski

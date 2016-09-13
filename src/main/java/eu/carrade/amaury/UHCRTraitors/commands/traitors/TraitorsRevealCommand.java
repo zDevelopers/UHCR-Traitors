@@ -1,10 +1,10 @@
 package eu.carrade.amaury.UHCRTraitors.commands.traitors;
 
+import eu.carrade.amaury.UHCRTraitors.Permissions;
 import fr.zcraft.zlib.components.commands.Command;
 import fr.zcraft.zlib.components.commands.CommandException;
 import fr.zcraft.zlib.components.commands.CommandInfo;
-
-import java.util.List;
+import org.bukkit.command.CommandSender;
 
 
 @CommandInfo (name = "reveal", usageParameters = "")
@@ -17,9 +17,8 @@ public final class TraitorsRevealCommand extends Command
     }
 
     @Override
-    protected List<String> complete() throws CommandException
+    public boolean canExecute(CommandSender sender)
     {
-        // TODO implement auto-completion for /traitors reveal
-        return null;
+        return Permissions.REVEAL.grantedTo(sender);
     }
 }

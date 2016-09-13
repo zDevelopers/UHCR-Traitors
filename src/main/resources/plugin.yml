@@ -5,6 +5,44 @@ main: eu.carrade.amaury.UHCRTraitors.UHCRTraitors
 description: UHCReloaded plugin adding traitors to the game
 author: Amaury Carrade
 
+depend:
+    - UHPlugin
+
+
 commands:
     traitors:
         description: Base command for traitors
+
+    f:
+        description: Traitors chat
+
+    reveal:
+        description: Traitors reveal command
+
+
+permissions:
+    traitors.*:
+        description: "Grants all permissions"
+        default: op
+        children:
+            traitors.count: true
+            traitors.chat: true
+            traitors.externalchat: true
+            traitors.reveal: true
+
+
+    traitors.count:
+        description: "Allows an user to update the traitors count before the game using /traitors count <number>"
+        default: op
+
+    traitors.chat:
+        description: "Allows a traitor to speak in the traitors chat using /f <message> or /traitors chat <message>."
+        default: true
+
+    traitors.externalchat:
+        description: "Allows an user to speak in the traitors chat from the outsite, using a custom name, for management or roleplay purposes, with /traitors ec <nickname> <message>."
+        default: op
+
+    traitors.reveal:
+        description: "Allows a traitor to reveal itself as one using /reveal (or /traitors reveal)."
+        default: true
