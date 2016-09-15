@@ -38,6 +38,7 @@ public enum Permissions
 {
     COUNT("traitors.count"),
     CHAT("traitors.chat"),
+    CHECK("traitors.check"),
     EXTERNALCHAT("traitors.externalchat"),
     REVEAL("traitors.reveal"),
 

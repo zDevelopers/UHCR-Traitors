@@ -67,6 +67,9 @@ public class TraitorsManager extends ZLibComponent implements Listener
     private final Map<UUID, Traitor> traitors = new HashMap<>();
 
     private int traitorsCount;
+
+    private boolean traitorsNotified = false;
+
     private final List<String> fakeNames = new ArrayList<>();
     private final Queue<String> availableFakeNames = new ArrayDeque<>();
     private int fakeNameNumber = 0;
@@ -122,6 +125,11 @@ public class TraitorsManager extends ZLibComponent implements Listener
     public Traitor getTraitor(UUID id)
     {
         return traitors.get(id);
+    }
+
+    public boolean areTraitorsNotified()
+    {
+        return traitorsNotified;
     }
 
     public boolean traitorsGenerated()
@@ -205,7 +213,7 @@ public class TraitorsManager extends ZLibComponent implements Listener
     {
         try
         {
-            scheduleTraitorsNotification();
+            scheduleTraitorsNotification(); // TODO move after when tests done, to execute only if traitors are generated
 
             generateTraitors();
             PluginLogger.info("{0} traitors generated.", traitors.size());
@@ -319,6 +327,7 @@ public class TraitorsManager extends ZLibComponent implements Listener
                 }
                 finally
                 {
+                    traitorsNotified = true;
                     cancel();
                 }
             }
