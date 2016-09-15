@@ -33,3 +33,6 @@ traitors:
         - Raginis
         - Anders
         - Sikorski
+
+    # If true, the traitors will be anonymous in the chat but their team will be visible (colored name in the traitors chat and tooltip).
+    displayTeam: true

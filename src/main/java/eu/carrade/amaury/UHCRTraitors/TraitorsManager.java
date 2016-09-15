@@ -36,13 +36,16 @@ import eu.carrade.amaury.UHCReloaded.events.UHGameStartsEvent;
 import eu.carrade.amaury.UHCReloaded.teams.UHTeam;
 import eu.carrade.amaury.UHCReloaded.utils.UHSound;
 import fr.zcraft.zlib.components.i18n.I;
+import fr.zcraft.zlib.components.rawtext.RawText;
 import fr.zcraft.zlib.core.ZLibComponent;
 import fr.zcraft.zlib.tools.PluginLogger;
+import fr.zcraft.zlib.tools.items.ItemStackBuilder;
 import fr.zcraft.zlib.tools.runners.RunTask;
 import fr.zcraft.zlib.tools.text.MessageSender;
 import fr.zcraft.zlib.tools.text.Titles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -83,9 +86,6 @@ public class TraitorsManager extends ZLibComponent implements Listener
         for (String name : new ArrayList<>(fakeNames))
             if (name.trim().isEmpty())
                 fakeNames.remove(name);
-
-        if (!fakeNames.isEmpty())
-            availableFakeNames.addAll(fakeNames);
     }
 
     public int getTraitorsCount()
@@ -105,9 +105,12 @@ public class TraitorsManager extends ZLibComponent implements Listener
     {
         if (!fakeNames.isEmpty())
         {
-            // If empty, we reuse the names
+            // If empty, we reuse the names. Each times the order is different.
             if (availableFakeNames.isEmpty())
+            {
+                Collections.shuffle(fakeNames);
                 availableFakeNames.addAll(fakeNames);
+            }
 
             return availableFakeNames.poll();
         }
@@ -223,6 +226,49 @@ public class TraitorsManager extends ZLibComponent implements Listener
             PluginLogger.error("Unable to generate traitors. " + e.getMessage());
         }
     }
+
+
+    /**
+     * Sends a message to the traitors chat
+     *
+     * @param nickname The nickname to use
+     * @param message The message
+     * @param team The team, to be displayed, or null to hide the team.
+     * @param revealed {@code true} to mark the traitor as revealed in the tooltip,
+     *                 {@code false} to mark it as hidden, {@code null} if this doesn't apply (e.g. external message).
+     */
+    public void sendToTraitorsChat(final String nickname, final String message, final UHTeam team, final Boolean revealed)
+    {
+        final ChatColor color = team != null ? team.getColor().toChatColor() : ChatColor.RED;
+        final ItemStackBuilder tooltip = new ItemStackBuilder(Material.POTATO_ITEM)
+                .title(color, ChatColor.BOLD + nickname);
+
+        if (team != null) tooltip.lore(I.t("{gray}Team: {0}", team.getDisplayName()));
+        if (revealed != null)
+        {
+            if (revealed) tooltip.lore(I.t("{gray}Traitor identity revealed"));
+            else          tooltip.lore(I.t("{gray}Traitor identity hidden"));
+        }
+
+        RawText chatMessage = new RawText("")
+                .then("[").color(ChatColor.GOLD)
+                .then(nickname)
+                    .color(color)
+                    .hover(tooltip.item())
+                .then(" -> ").color(ChatColor.GOLD)
+                .then(I.t("traitors")).color(ChatColor.RED)
+                .then("] ").color(ChatColor.GOLD)
+                .then(message)
+                .build();
+
+        for (Traitor traitor : traitors.values())
+        {
+            MessageSender.sendChatMessage(traitor.getUniqueId(), chatMessage);
+        }
+
+        Bukkit.getConsoleSender().sendMessage(chatMessage.toFormattedText());
+    }
+
 
     private class TraitorsNotificationTask extends BukkitRunnable
     {

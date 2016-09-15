@@ -3,6 +3,7 @@ package eu.carrade.amaury.UHCRTraitors;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsChatCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsCheckCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsCountCommand;
+import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsExternalChatCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsRevealCommand;
 import eu.carrade.amaury.UHCRTraitors.dependencies.UHCReloadedDependency;
 import fr.zcraft.zlib.components.commands.Commands;
@@ -42,7 +43,7 @@ public final class UHCRTraitors extends ZPlugin
 
         traitorsManager = loadComponent(TraitorsManager.class);
 
-        Commands.register("traitors", TraitorsCountCommand.class, TraitorsChatCommand.class, TraitorsCheckCommand.class, TraitorsRevealCommand.class);
+        Commands.register("traitors", TraitorsCountCommand.class, TraitorsChatCommand.class, TraitorsExternalChatCommand.class, TraitorsCheckCommand.class, TraitorsRevealCommand.class);
         Commands.registerShortcut("traitors", TraitorsChatCommand.class, "f");
         Commands.registerShortcut("traitors", TraitorsCheckCommand.class, "amiatraitor");
         Commands.registerShortcut("traitors", TraitorsRevealCommand.class, "reveal");

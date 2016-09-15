@@ -16,5 +16,6 @@ public class Config extends Configuration
         public final ConfigurationItem<Integer> COUNT = item("count", 0);
         public final ConfigurationItem<Integer> NOTIFY_AFTER = item("notifyAfter", 30);
         public final ConfigurationList<String> FAKE_NAMES = list("fakeNames", String.class);
+        public final ConfigurationItem<Boolean> DISPLAY_TEAM = item("displayTeam", true);
     }
 }
