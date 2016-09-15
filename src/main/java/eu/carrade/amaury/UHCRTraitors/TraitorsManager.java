@@ -34,10 +34,20 @@ package eu.carrade.amaury.UHCRTraitors;
 import eu.carrade.amaury.UHCReloaded.UHCReloaded;
 import eu.carrade.amaury.UHCReloaded.events.UHGameStartsEvent;
 import eu.carrade.amaury.UHCReloaded.teams.UHTeam;
+import eu.carrade.amaury.UHCReloaded.utils.UHSound;
+import fr.zcraft.zlib.components.i18n.I;
 import fr.zcraft.zlib.core.ZLibComponent;
 import fr.zcraft.zlib.tools.PluginLogger;
+import fr.zcraft.zlib.tools.runners.RunTask;
+import fr.zcraft.zlib.tools.text.MessageSender;
+import fr.zcraft.zlib.tools.text.Titles;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -124,7 +134,7 @@ public class TraitorsManager extends ZLibComponent implements Listener
         generateTraitors(new Random());
     }
 
-    public void generateTraitors(final Random random)
+    private void generateTraitors(final Random random)
     {
         if (!traitorsGenerated())
         {
@@ -182,17 +192,138 @@ public class TraitorsManager extends ZLibComponent implements Listener
         }
     }
 
+    private void scheduleTraitorsNotification()
+    {
+        Integer notifyAfter = Config.TRAITORS.NOTIFY_AFTER.get();
+        if (notifyAfter < 1) notifyAfter = 1;
+
+        RunTask.timer(new TraitorsNotificationTask(), notifyAfter * 60 * 20l, 20l);
+    }
+
     @EventHandler
     public void onGameStarts(UHGameStartsEvent ev)
     {
         try
         {
+            scheduleTraitorsNotification();
+
             generateTraitors();
             PluginLogger.info("{0} traitors generated.", traitors.size());
         }
         catch (IllegalArgumentException e)
         {
             PluginLogger.error("Unable to generate traitors. " + e.getMessage());
+        }
+    }
+
+    private class TraitorsNotificationTask extends BukkitRunnable
+    {
+        private int step = 10;
+
+        @Override
+        public void run()
+        {
+            if (step > 0)
+            {
+                ChatColor color = step > 5 ? ChatColor.GREEN : step > 3 ? ChatColor.YELLOW : ChatColor.RED;
+                Titles.broadcastTitle(0, 30, 0, color + String.valueOf(step), "");
+
+                if (step == 10 || step <= 5)
+                {
+                    Bukkit.broadcastMessage(I.tn("{yellow}Traitors will be notified in {gold}{0}{yellow} second", "{yellow}Traitors will be notified in {gold}{0}{yellow} seconds", step));
+                }
+
+                if (step <= 5)
+                {
+                    new UHSound(Sound.BLOCK_NOTE_HAT, 1.2f, 0.6f).broadcast();
+                }
+            }
+            else
+            {
+                try
+                {
+                    Titles.broadcastTitle(0, 60, 20, ChatColor.RED + "0", "");
+
+                    new UHSound(Sound.ENTITY_HORSE_SADDLE, 2f, 0.65f).broadcast();
+
+
+                    // Chat notifications
+
+                    Bukkit.broadcastMessage("");
+                    UHCRTraitors.get().separator();
+
+                    for (Player player : Bukkit.getOnlinePlayers())
+                    {
+                        final Traitor traitor = getTraitor(player.getUniqueId());
+
+                        if (traitor != null)
+                        {
+                            MessageSender.sendActionBarMessage(player, I.t("{red}YOU ARE A TRAITOR. {yellow}Open chat for details."));
+
+                            I.sendT(player, "{red}{bold}You are a traitor.");
+                            I.sendT(player, "{yellow}{bold}Your objective is to win with the other traitors.");
+                            I.sendT(player, "{yellow}You are now against your team, but they don't know this! Use the secret to your advantage.");
+
+                            player.sendMessage("");
+
+                            I.sendT(player, "{yellow}The traitors only know themselves through a fake name.");
+                            I.sendT(player, "{yellow}Your traitor name is {gold}{0}{yellow}.", traitor.getFakeName());
+                        }
+                        else
+                        {
+                            I.sendT(player, "{darkgreen}{bold}You are not a traitor.");
+                            I.sendT(player, "{green}Your objective is to win with your team. But beware, it's not the case of all your teammates...");
+                        }
+                    }
+
+                    UHCRTraitors.get().separator();
+                    Bukkit.broadcastMessage("");
+
+
+                    // Public ProTips
+
+                    RunTask.later(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            TraitorsProTips.AM_I_A_TRAIOR.broadcast();
+                        }
+                    }, 60 * 20l);
+
+
+                    // Traitors ProTips
+
+                    RunTask.later(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            for (Traitor traitor : traitors.values())
+                            {
+                                TraitorsProTips.TRAITORS_CHAT.sendTo(traitor.getUniqueId());
+                            }
+                        }
+                    }, 15 * 20l);
+
+                    RunTask.later(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            for (Traitor traitor : traitors.values())
+                            {
+                                TraitorsProTips.TRAITORS_REVEAL.sendTo(traitor.getUniqueId());
+                            }
+                        }
+                    }, 60 * 5 * 20l);
+                }
+                finally
+                {
+                    cancel();
+                }
+            }
+
+            step--;
         }
     }
 }

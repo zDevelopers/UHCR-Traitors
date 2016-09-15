@@ -31,52 +31,60 @@
  */
 package eu.carrade.amaury.UHCRTraitors;
 
+import eu.carrade.amaury.UHCReloaded.protips.ProTip;
+import fr.zcraft.zlib.components.i18n.I;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 
-public class Traitor
+public enum TraitorsProTips
 {
-    private final UUID traitorID;
-    private final String fakeName;
+    TRAITORS_CHAT(new ProTip(true, I.t("{gray}Speak anonymously with the other traitors using {cc}/f <message>{gray}."))),
+    TRAITORS_REVEAL(new ProTip(true, I.t("{gray}You can tell the whole server you're a traitor using {cc}/reveal{gray}. Beware of the consequences!"))),
+    AM_I_A_TRAIOR(new ProTip(true, I.t("{gray}If someone wasn't online when the traitors were notified, you can tell them to use {cc}/amiatraitor{gray}.")))
 
-    private boolean isRevealed = false;
+    ;
 
-    public Traitor(UUID traitorID)
+    private final ProTip proTip;
+
+    TraitorsProTips(ProTip proTip)
     {
-        this.traitorID = traitorID;
-        this.fakeName = UHCRTraitors.get().getTraitorsManager().getFakeName();
+        this.proTip = proTip;
     }
 
-    public UUID getUniqueId()
+    public ProTip get()
     {
-        return traitorID;
+        return proTip;
     }
 
-    public Player getPlayer()
+
+    /**
+     * Sends this ProTip, if it wasn't sent before to this player.
+     *
+     * @param player The receiver of this ProTip.
+     */
+    public void sendTo(Player player)
     {
-        return Bukkit.getPlayer(traitorID);
+        proTip.sendTo(player);
     }
 
-    public String getFakeName()
+    /**
+     * Sends this ProTip, if it wasn't sent before to this player and this player is online.
+     *
+     * @param id The receiver of this ProTip.
+     */
+    public void sendTo(UUID id)
     {
-        return fakeName;
+        proTip.sendTo(id);
     }
 
-    public boolean isRevealed()
+    public void broadcast()
     {
-        return isRevealed;
-    }
-
-    public void reveal()
-    {
-       if (!isRevealed)
-       {
-           isRevealed = true;
-
-           // TODO announcement and display name change
-       }
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            proTip.sendTo(player);
+        }
     }
 }

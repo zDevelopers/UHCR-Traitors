@@ -5,8 +5,12 @@ import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsCountCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsRevealCommand;
 import eu.carrade.amaury.UHCRTraitors.dependencies.UHCReloadedDependency;
 import fr.zcraft.zlib.components.commands.Commands;
+import fr.zcraft.zlib.components.i18n.I18n;
 import fr.zcraft.zlib.core.ZPlugin;
 import fr.zcraft.zlib.tools.PluginLogger;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 
 public final class UHCRTraitors extends ZPlugin
@@ -29,7 +33,11 @@ public final class UHCRTraitors extends ZPlugin
             return;
         }
 
-        loadComponents(Config.class, Commands.class);
+        saveDefaultConfig();
+
+        loadComponents(Config.class, Commands.class, I18n.class);
+
+        I18n.useDefaultPrimaryLocale();
 
         traitorsManager = loadComponent(TraitorsManager.class);
 
@@ -46,5 +54,20 @@ public final class UHCRTraitors extends ZPlugin
     public TraitorsManager getTraitorsManager()
     {
         return traitorsManager;
+    }
+
+    public void separator(Player player)
+    {
+        final String separator = ChatColor.GRAY + "⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅";
+
+        if (player != null)
+            player.sendMessage(separator);
+        else
+            Bukkit.broadcastMessage(separator);
+    }
+
+    public void separator()
+    {
+        separator(null);
     }
 }
