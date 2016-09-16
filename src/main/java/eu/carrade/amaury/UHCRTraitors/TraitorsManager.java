@@ -94,11 +94,25 @@ public class TraitorsManager extends ZLibComponent implements Listener
                 fakeNames.remove(name);
     }
 
+
+
+    /* **  TRAITORS MANAGEMENT  ** */
+
+
+    /**
+     * @return The amount of traitors to be generated
+     */
     public int getTraitorsCount()
     {
         return traitorsCount;
     }
 
+    /**
+     * Updates the amount of traitors to generate.
+     *
+     * @param traitorsCount The amount. 0 to use the teams count.
+     * @throws IllegalStateException if the traitors are generated.
+     */
     public void setTraitorsCount(int traitorsCount)
     {
         if (traitorsGenerated())
@@ -107,6 +121,11 @@ public class TraitorsManager extends ZLibComponent implements Listener
         this.traitorsCount = traitorsCount;
     }
 
+    /**
+     * Generates a random fake name. It will be unique, except if all the names were used.
+     *
+     * @return A random fake name.
+     */
     public String getFakeName()
     {
         if (!fakeNames.isEmpty())
@@ -126,37 +145,69 @@ public class TraitorsManager extends ZLibComponent implements Listener
         }
     }
 
+    /**
+     * Updates the display name and team of the given player to appear like a traitor (all dark red).
+     *
+     * @param player The player to update.
+     */
     public void addRevealedTraitorAttributes(Player player)
     {
         player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.RESET);
         UHCReloaded.get().getScoreboardManager().getScoreboard().getTeam(traitorsTeamInternalName).addPlayer(player);
     }
 
+    /**
+     * @param id A player UUID
+     * @return {@code true} if that player is a traitor.
+     */
     public boolean isTraitor(UUID id)
     {
         return traitors.containsKey(id);
     }
 
+    /**
+     * @param id A player UUID
+     * @return A {@link Traitor} object, or {@code null} if this player is not a traitor.
+     */
     public Traitor getTraitor(UUID id)
     {
         return traitors.get(id);
     }
 
+    /**
+     * @return {@code true} if the traitors were notified.
+     */
     public boolean areTraitorsNotified()
     {
         return traitorsNotified;
     }
 
+    /**
+     * @return {@code true} if the traitors were generated.
+     */
     public boolean traitorsGenerated()
     {
         return !traitors.isEmpty();
     }
 
+
+
+    /* **  TRAITORS GENERATION  ** */
+
+
+    /**
+     * Generates the traitors using a random seed.
+     */
     public void generateTraitors()
     {
         generateTraitors(new Random());
     }
 
+    /**
+     * Generates the traitors using a custom {@link Random} object.
+     *
+     * @param random The {@link Random} object to use to generate the traitors.
+     */
     private void generateTraitors(final Random random)
     {
         if (!traitorsGenerated())
@@ -215,6 +266,14 @@ public class TraitorsManager extends ZLibComponent implements Listener
         }
     }
 
+
+
+    /* **  TRAITORS INITIALIZATION  ** */
+
+
+    /**
+     * Schedules the traitors notifications. To be executed when the game starts.
+     */
     private void scheduleTraitorsNotification()
     {
         Integer notifyAfter = Config.TRAITORS.NOTIFY_AFTER.get();
@@ -223,6 +282,9 @@ public class TraitorsManager extends ZLibComponent implements Listener
         RunTask.timer(new TraitorsNotificationTask(), notifyAfter * 60 * 20l, 20l);
     }
 
+    /**
+     * Setups the traitors team. To be executed before any reveal (e.g. when the game starts).
+     */
     private void setupScoreboard()
     {
         final Scoreboard sb = UHCReloaded.get().getScoreboardManager().getScoreboard();
@@ -237,6 +299,9 @@ public class TraitorsManager extends ZLibComponent implements Listener
         team.setSuffix(ChatColor.RESET.toString());
     }
 
+    /**
+     * Schedules all the things.
+     */
     @EventHandler (priority = EventPriority.MONITOR)
     public void onGameStarts(UHGameStartsEvent ev)
     {
@@ -255,6 +320,9 @@ public class TraitorsManager extends ZLibComponent implements Listener
         }
     }
 
+    /**
+     * Ensures revealed traitors are in the good scoreboard team and with the good color.
+     */
     @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerJoin(final PlayerJoinEvent ev)
     {
@@ -270,6 +338,10 @@ public class TraitorsManager extends ZLibComponent implements Listener
             }, 10l);
         }
     }
+
+
+
+    /* **  TRAITORS CHAT  ** */
 
 
     /**
@@ -314,6 +386,13 @@ public class TraitorsManager extends ZLibComponent implements Listener
     }
 
 
+
+    /* **  TRAITORS TASKS  ** */
+
+
+    /**
+     * The task sending the countdown and then notifying the players about their traitor status.
+     */
     private class TraitorsNotificationTask extends BukkitRunnable
     {
         private int step = 10;
