@@ -31,6 +31,7 @@
  */
 package eu.carrade.amaury.UHCRTraitors;
 
+import fr.zcraft.zlib.components.i18n.I;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -76,7 +77,19 @@ public class Traitor
        {
            isRevealed = true;
 
-           // TODO announcement and display name change
+           final Player player = getPlayer();
+           if (player != null)
+           {
+               UHCRTraitors.get().getTraitorsManager().addRevealedTraitorAttributes(player);
+           }
+
+           Bukkit.broadcastMessage("");
+           UHCRTraitors.get().separator();
+
+           Bukkit.broadcastMessage(I.t("{red}{bold}{0} is a traitor!", Bukkit.getOfflinePlayer(traitorID).getName()));
+
+           UHCRTraitors.get().separator();
+           Bukkit.broadcastMessage("");
        }
     }
 }

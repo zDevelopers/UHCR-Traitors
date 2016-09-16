@@ -49,8 +49,12 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -76,6 +80,8 @@ public class TraitorsManager extends ZLibComponent implements Listener
     private final List<String> fakeNames = new ArrayList<>();
     private final Queue<String> availableFakeNames = new ArrayDeque<>();
     private int fakeNameNumber = 0;
+
+    private String traitorsTeamInternalName = "";
 
     @Override
     protected void onEnable()
@@ -118,6 +124,12 @@ public class TraitorsManager extends ZLibComponent implements Listener
         {
             return String.valueOf(++fakeNameNumber);
         }
+    }
+
+    public void addRevealedTraitorAttributes(Player player)
+    {
+        player.setDisplayName(ChatColor.DARK_RED + player.getName() + ChatColor.RESET);
+        UHCReloaded.get().getScoreboardManager().getScoreboard().getTeam(traitorsTeamInternalName).addPlayer(player);
     }
 
     public boolean isTraitor(UUID id)
@@ -211,12 +223,28 @@ public class TraitorsManager extends ZLibComponent implements Listener
         RunTask.timer(new TraitorsNotificationTask(), notifyAfter * 60 * 20l, 20l);
     }
 
-    @EventHandler
+    private void setupScoreboard()
+    {
+        final Scoreboard sb = UHCReloaded.get().getScoreboardManager().getScoreboard();
+        final Random rand = new Random();
+
+        traitorsTeamInternalName = String.valueOf(rand.nextInt(99999999)) + String.valueOf(rand.nextInt(99999999));
+
+        final Team team = sb.registerNewTeam(traitorsTeamInternalName);
+
+        team.setDisplayName(I.t("Traitors"));
+        team.setPrefix(ChatColor.DARK_RED.toString());
+        team.setSuffix(ChatColor.RESET.toString());
+    }
+
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onGameStarts(UHGameStartsEvent ev)
     {
         try
         {
-            scheduleTraitorsNotification(); // TODO move after when tests done, to execute only if traitors are generated
+            // TODO move after when tests done, to execute only if traitors are generated
+            setupScoreboard();
+            scheduleTraitorsNotification();
 
             generateTraitors();
             PluginLogger.info("{0} traitors generated.", traitors.size());
@@ -224,6 +252,22 @@ public class TraitorsManager extends ZLibComponent implements Listener
         catch (IllegalArgumentException e)
         {
             PluginLogger.error("Unable to generate traitors. " + e.getMessage());
+        }
+    }
+
+    @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPlayerJoin(final PlayerJoinEvent ev)
+    {
+        final Traitor traitor = getTraitor(ev.getPlayer().getUniqueId());
+        if (traitor != null && areTraitorsNotified() && traitor.isRevealed())
+        {
+            RunTask.later(new Runnable() {
+                @Override
+                public void run()
+                {
+                    addRevealedTraitorAttributes(ev.getPlayer());
+                }
+            }, 10l);
         }
     }
 
@@ -303,12 +347,12 @@ public class TraitorsManager extends ZLibComponent implements Listener
 
                     // Chat notifications
 
-                    Bukkit.broadcastMessage("");
-                    UHCRTraitors.get().separator();
-
                     for (Player player : Bukkit.getOnlinePlayers())
                     {
                         final Traitor traitor = getTraitor(player.getUniqueId());
+
+                        player.sendMessage("");
+                        UHCRTraitors.get().separator(player);
 
                         if (traitor != null)
                         {
@@ -328,10 +372,10 @@ public class TraitorsManager extends ZLibComponent implements Listener
                             I.sendT(player, "{darkgreen}{bold}You are not a traitor.");
                             I.sendT(player, "{green}Your objective is to win with your team. But beware, it's not the case of all your teammates...");
                         }
-                    }
 
-                    UHCRTraitors.get().separator();
-                    Bukkit.broadcastMessage("");
+                        UHCRTraitors.get().separator(player);
+                        player.sendMessage("");
+                    }
 
 
                     // Public ProTips
