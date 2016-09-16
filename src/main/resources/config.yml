@@ -36,3 +36,12 @@ traitors:
 
     # If true, the traitors will be anonymous in the chat but their team will be visible (colored name in the traitors chat and tooltip).
     displayTeam: true
+
+
+deathMessages:
+    # If true, all death messages will be « Player died », so other players will not be able to see if
+    # a traitor killed someone in his team.
+    hide: true
+
+    # If true, the original death message will be logged in the console.
+    logOriginal: true

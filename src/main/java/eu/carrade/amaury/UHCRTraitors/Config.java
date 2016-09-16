@@ -18,4 +18,11 @@ public class Config extends Configuration
         public final ConfigurationList<String> FAKE_NAMES = list("fakeNames", String.class);
         public final ConfigurationItem<Boolean> DISPLAY_TEAM = item("displayTeam", true);
     }
+
+    static public final DeathMessagesSection DEATH_MESSAGES = section("deathMessages", DeathMessagesSection.class);
+    static public class DeathMessagesSection extends ConfigurationSection
+    {
+        public final ConfigurationItem<Boolean> HIDE = item("hide", true);
+        public final ConfigurationItem<Boolean> LOG_ORIGINAL = item("logOriginal", true);
+    }
 }

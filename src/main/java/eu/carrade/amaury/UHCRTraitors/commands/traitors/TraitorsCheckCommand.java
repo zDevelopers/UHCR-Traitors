@@ -67,7 +67,7 @@ public class TraitorsCheckCommand extends Command
         else
         {
             I.sendT(playerSender(), "{darkgreen}{bold}You are not a traitor.");
-            I.sendT(playerSender(), "{green}Your objective is to win with your team. But beware, it's not the case of all your teammates...");
+            I.sendT(playerSender(), "{green}Your objective is to win with your team. But beware, it's not the case of all of your teammates...");
         }
 
         UHCRTraitors.get().separator(playerSender());

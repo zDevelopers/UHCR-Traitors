@@ -33,6 +33,7 @@ package eu.carrade.amaury.UHCRTraitors;
 
 import eu.carrade.amaury.UHCReloaded.UHCReloaded;
 import eu.carrade.amaury.UHCReloaded.events.UHGameStartsEvent;
+import eu.carrade.amaury.UHCReloaded.events.UHPlayerDeathEvent;
 import eu.carrade.amaury.UHCReloaded.teams.UHTeam;
 import eu.carrade.amaury.UHCReloaded.utils.UHSound;
 import fr.zcraft.zlib.components.i18n.I;
@@ -387,6 +388,25 @@ public class TraitorsManager extends ZLibComponent implements Listener
 
 
 
+    /* **  TRAITORS DEATH MESSAGES  ** */
+
+
+    @EventHandler (priority = EventPriority.LOWEST)
+    public void onPlayerDeath(UHPlayerDeathEvent ev)
+    {
+        if (Config.DEATH_MESSAGES.HIDE.get())
+        {
+            if (Config.DEATH_MESSAGES.LOG_ORIGINAL.get())
+            {
+                PluginLogger.info("Death of {0} - Original death message: {1}.", ev.getPlayer().getName(), ev.getPlayerDeathEvent().getDeathMessage());
+            }
+
+            ev.getPlayerDeathEvent().setDeathMessage(I.t("{0} died.", ev.getPlayer().getName()));
+        }
+    }
+
+
+
     /* **  TRAITORS TASKS  ** */
 
 
@@ -449,7 +469,7 @@ public class TraitorsManager extends ZLibComponent implements Listener
                         else
                         {
                             I.sendT(player, "{darkgreen}{bold}You are not a traitor.");
-                            I.sendT(player, "{green}Your objective is to win with your team. But beware, it's not the case of all your teammates...");
+                            I.sendT(player, "{green}Your objective is to win with your team. But beware, it's not the case of all of your teammates...");
                         }
 
                         UHCRTraitors.get().separator(player);
