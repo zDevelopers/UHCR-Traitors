@@ -184,6 +184,11 @@ public class TraitorsManager extends ZLibComponent implements Listener
         return traitors.get(id);
     }
 
+    public List<Traitor> getTraitors()
+    {
+        return Collections.unmodifiableList(new ArrayList<>(traitors.values()));
+    }
+
     /**
      * @return {@code true} if the traitors were notified.
      */

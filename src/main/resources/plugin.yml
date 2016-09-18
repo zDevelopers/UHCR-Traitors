@@ -33,6 +33,8 @@ permissions:
             traitors.check: true
             traitors.externalchat: true
             traitors.reveal: true
+            traitors.list: true
+            traitors.list.full: true
 
 
     traitors.count:
@@ -54,3 +56,11 @@ permissions:
     traitors.reveal:
         description: "Allows a traitor to reveal itself as one using /reveal (or /traitors reveal)."
         default: true
+
+    traitors.list:
+        description: "Allows an user to list the traitors."
+        default: true
+
+    traitors.list.full:
+        description: "Allows an user to list the traitors, including the real identity of the traitors."
+        default: op

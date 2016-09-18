@@ -41,6 +41,8 @@ public enum Permissions
     CHECK("traitors.check"),
     EXTERNALCHAT("traitors.externalchat"),
     REVEAL("traitors.reveal"),
+    LIST("traitors.list"),
+    LIST_FULL("traitors.list.full")
 
     ;
 

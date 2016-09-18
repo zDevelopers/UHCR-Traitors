@@ -4,6 +4,7 @@ import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsChatCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsCheckCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsCountCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsExternalChatCommand;
+import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsListCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsRevealCommand;
 import eu.carrade.amaury.UHCRTraitors.dependencies.UHCReloadedDependency;
 import eu.carrade.amaury.UHCRTraitors.traitors.TraitorsManager;
@@ -13,7 +14,7 @@ import fr.zcraft.zlib.core.ZPlugin;
 import fr.zcraft.zlib.tools.PluginLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 
 public final class UHCRTraitors extends ZPlugin
@@ -44,7 +45,7 @@ public final class UHCRTraitors extends ZPlugin
 
         traitorsManager = loadComponent(TraitorsManager.class);
 
-        Commands.register("traitors", TraitorsCountCommand.class, TraitorsChatCommand.class, TraitorsExternalChatCommand.class, TraitorsCheckCommand.class, TraitorsRevealCommand.class);
+        Commands.register("traitors", TraitorsCountCommand.class, TraitorsListCommand.class, TraitorsChatCommand.class, TraitorsExternalChatCommand.class, TraitorsCheckCommand.class, TraitorsRevealCommand.class);
         Commands.registerShortcut("traitors", TraitorsChatCommand.class, "f");
         Commands.registerShortcut("traitors", TraitorsCheckCommand.class, "amiatraitor");
         Commands.registerShortcut("traitors", TraitorsRevealCommand.class, "reveal");
@@ -60,7 +61,7 @@ public final class UHCRTraitors extends ZPlugin
         return traitorsManager;
     }
 
-    public void separator(Player player)
+    public void separator(CommandSender player)
     {
         final String separator = ChatColor.GRAY + "⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅ ⋅";
 
