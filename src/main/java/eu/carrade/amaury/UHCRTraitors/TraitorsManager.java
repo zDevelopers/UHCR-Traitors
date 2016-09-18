@@ -32,8 +32,10 @@
 package eu.carrade.amaury.UHCRTraitors;
 
 import eu.carrade.amaury.UHCReloaded.UHCReloaded;
+import eu.carrade.amaury.UHCReloaded.events.UHGameEndsEvent;
 import eu.carrade.amaury.UHCReloaded.events.UHGameStartsEvent;
 import eu.carrade.amaury.UHCReloaded.events.UHPlayerDeathEvent;
+import eu.carrade.amaury.UHCReloaded.events.UHPlayerResurrectedEvent;
 import eu.carrade.amaury.UHCReloaded.teams.UHTeam;
 import eu.carrade.amaury.UHCReloaded.utils.UHSound;
 import fr.zcraft.zlib.components.i18n.I;
@@ -47,6 +49,7 @@ import fr.zcraft.zlib.tools.text.Titles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -83,6 +86,10 @@ public class TraitorsManager extends ZLibComponent implements Listener
     private int fakeNameNumber = 0;
 
     private String traitorsTeamInternalName = "";
+
+    private boolean gameEnded = false;
+    private UHTeam currentEndingTeam = null;
+
 
     @Override
     protected void onEnable()
@@ -308,12 +315,11 @@ public class TraitorsManager extends ZLibComponent implements Listener
     {
         try
         {
-            // TODO move after when tests done, to execute only if traitors are generated
-            setupScoreboard();
-            scheduleTraitorsNotification();
-
             generateTraitors();
             PluginLogger.info("{0} traitors generated.", traitors.size());
+
+            setupScoreboard();
+            scheduleTraitorsNotification();
         }
         catch (IllegalArgumentException e)
         {
@@ -337,6 +343,108 @@ public class TraitorsManager extends ZLibComponent implements Listener
                     addRevealedTraitorAttributes(ev.getPlayer());
                 }
             }, 10l);
+        }
+    }
+
+
+
+    /* **  GAME END  ** */
+
+
+    /**
+     * Checks if there are still some non-traitors in the game. Else, the traitors win!
+     */
+    @EventHandler
+    public void onPlayerEnds(final UHPlayerDeathEvent ev)
+    {
+        int nonTraitors = 0;
+
+        for (OfflinePlayer player : UHCReloaded.get().getGameManager().getAlivePlayers())
+            if (!isTraitor(player.getUniqueId()))
+                nonTraitors++;
+
+        if (nonTraitors == 0)
+            traitorsWin();
+    }
+
+    /**
+     * Cancels the end if there are still one traitor in a team, or if the last standing man is a traitor.
+     */
+    @EventHandler
+    public void onGameEnds(final UHGameEndsEvent ev)
+    {
+        // If the game ends, there's only one team left. We check if there is a traitor inside. If it's the case, we cancel the end
+        // of the game.
+        final UHTeam team = ev.getWinnerTeam();
+
+        int traitorsLeft = 0;
+        int othersLeft   = 0;
+
+        for (UUID player : team.getPlayersUUID())
+        {
+            if (!UHCReloaded.get().getGameManager().isPlayerDead(player))
+            {
+                if (isTraitor(player)) traitorsLeft++;
+                else                   othersLeft++;
+            }
+        }
+
+        if (othersLeft == 0)
+        {
+            ev.setCancelled(true);
+            traitorsWin();
+        }
+        else if (traitorsLeft > 0)
+        {
+            ev.setCancelled(true);
+
+            if (currentEndingTeam == null || !currentEndingTeam.equals(team))
+            {
+                currentEndingTeam = team;
+
+                UHCRTraitors.get().separator();
+
+                Bukkit.broadcastMessage(I.tn("{red}There's only one team alive, but {bold}a traitor is hidden within{red}.", "{red}There's only one team alive, but {bold}some traitors are hidden within{red}.", traitorsLeft));
+                Bukkit.broadcastMessage(I.tn("{red}The game will only end when he will be defeated... or defeat all the honest players!", "{red}The game will only end when they will be defeated... or defeat all the honest players!", traitorsLeft));
+
+                UHCRTraitors.get().separator();
+            }
+        }
+    }
+
+    /**
+     *  We check, when a player is resurrected, if it resurrects a non-traitor, so the end message can be displayed again
+     * for the real end.
+     */
+    @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onPlayerResurrect(UHPlayerResurrectedEvent ev)
+    {
+        for (OfflinePlayer player : UHCReloaded.get().getGameManager().getAlivePlayers())
+        {
+            if (!isTraitor(player.getUniqueId()))
+            {
+                gameEnded = false;
+                return;
+            }
+        }
+    }
+
+    /**
+     * Displays the traitors win message.
+     */
+    private void traitorsWin()
+    {
+        if (!gameEnded)
+        {
+            gameEnded = true;
+
+            new UHSound(Sound.ENTITY_ENDERDRAGON_DEATH).broadcast();
+
+            UHCRTraitors.get().separator();
+            Bukkit.broadcastMessage(I.t("{red}The game just ended. {bold}Traitors win."));
+            UHCRTraitors.get().separator();
+
+            Titles.broadcastTitle(10, 20 * 5, 30, I.t("{red}Traitors win"), I.t("{red}Sometimes, being vile is a good thing."));
         }
     }
 
