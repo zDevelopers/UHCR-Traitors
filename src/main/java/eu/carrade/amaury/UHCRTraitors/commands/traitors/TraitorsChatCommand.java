@@ -2,7 +2,7 @@ package eu.carrade.amaury.UHCRTraitors.commands.traitors;
 
 import eu.carrade.amaury.UHCRTraitors.Config;
 import eu.carrade.amaury.UHCRTraitors.Permissions;
-import eu.carrade.amaury.UHCRTraitors.Traitor;
+import eu.carrade.amaury.UHCRTraitors.traitors.Traitor;
 import eu.carrade.amaury.UHCRTraitors.UHCRTraitors;
 import eu.carrade.amaury.UHCReloaded.UHCReloaded;
 import eu.carrade.amaury.UHCReloaded.teams.UHTeam;

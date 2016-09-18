@@ -6,6 +6,7 @@ import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsCountCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsExternalChatCommand;
 import eu.carrade.amaury.UHCRTraitors.commands.traitors.TraitorsRevealCommand;
 import eu.carrade.amaury.UHCRTraitors.dependencies.UHCReloadedDependency;
+import eu.carrade.amaury.UHCRTraitors.traitors.TraitorsManager;
 import fr.zcraft.zlib.components.commands.Commands;
 import fr.zcraft.zlib.components.i18n.I18n;
 import fr.zcraft.zlib.core.ZPlugin;

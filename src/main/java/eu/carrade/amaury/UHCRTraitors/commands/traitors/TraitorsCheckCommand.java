@@ -32,7 +32,7 @@
 package eu.carrade.amaury.UHCRTraitors.commands.traitors;
 
 import eu.carrade.amaury.UHCRTraitors.Permissions;
-import eu.carrade.amaury.UHCRTraitors.Traitor;
+import eu.carrade.amaury.UHCRTraitors.traitors.Traitor;
 import eu.carrade.amaury.UHCRTraitors.UHCRTraitors;
 import fr.zcraft.zlib.components.commands.Command;
 import fr.zcraft.zlib.components.commands.CommandException;

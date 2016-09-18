@@ -29,7 +29,7 @@
  * The fact that you are presently reading this means that you have had
  * knowledge of the CeCILL-B license and that you accept its terms.
  */
-package eu.carrade.amaury.UHCRTraitors;
+package eu.carrade.amaury.UHCRTraitors.traitors;
 
 import eu.carrade.amaury.UHCReloaded.protips.ProTip;
 import fr.zcraft.zlib.components.i18n.I;
