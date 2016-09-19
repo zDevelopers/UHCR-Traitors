@@ -462,7 +462,7 @@ public class TraitorsManager extends ZLibComponent implements Listener
             Bukkit.broadcastMessage(I.t("{red}The game just ended. {bold}Traitors win."));
             UHCRTraitors.get().separator();
 
-            Titles.broadcastTitle(10, 20 * 5, 30, I.t("{red}Traitors win"), I.t("{red}Sometimes, being vile is a good thing."));
+            Titles.broadcastTitle(10, 20 * 10, 30, I.t("{red}Traitors win"), I.t("{red}Sometimes, being vile is a good thing."));
         }
     }
 
