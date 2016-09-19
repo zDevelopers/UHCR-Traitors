@@ -107,6 +107,7 @@ public class TraitorsListCommand extends Command
             final RawText desc = new RawText("");
             desc.then("- ").color(ChatColor.GRAY);
             desc.then(displayName).color(team != null ? team.getColor().toChatColor() : ChatColor.GOLD);
+            desc.then(" ");
 
             if (team != null)
             {
@@ -132,7 +133,7 @@ public class TraitorsListCommand extends Command
 
             if (UHCReloaded.get().getGameManager().isPlayerDead(traitor.getUniqueId()))
             {
-                desc.then(I.t("{gray}({darkred}DEAD{gray})"));
+                desc.then(" ").then(I.t("{gray}({darkred}DEAD{gray})"));
             }
 
             send(desc);

@@ -364,14 +364,20 @@ public class TraitorsManager extends ZLibComponent implements Listener
     @EventHandler
     public void onPlayerEnds(final UHPlayerDeathEvent ev)
     {
-        int nonTraitors = 0;
+        RunTask.nextTick(new Runnable() {
+            @Override
+            public void run()
+            {
+                int nonTraitors = 0;
 
-        for (OfflinePlayer player : UHCReloaded.get().getGameManager().getAlivePlayers())
-            if (!isTraitor(player.getUniqueId()))
-                nonTraitors++;
+                for (OfflinePlayer player : UHCReloaded.get().getGameManager().getAlivePlayers())
+                    if (!isTraitor(player.getUniqueId()))
+                        nonTraitors++;
 
-        if (nonTraitors == 0)
-            traitorsWin();
+                if (nonTraitors == 0)
+                    traitorsWin();
+            }
+        });
     }
 
     /**
@@ -385,21 +391,20 @@ public class TraitorsManager extends ZLibComponent implements Listener
         final UHTeam team = ev.getWinnerTeam();
 
         int traitorsLeft = 0;
-        int othersLeft   = 0;
+        int othersLeft = 0;
 
         for (UUID player : team.getPlayersUUID())
         {
             if (!UHCReloaded.get().getGameManager().isPlayerDead(player))
             {
                 if (isTraitor(player)) traitorsLeft++;
-                else                   othersLeft++;
+                else othersLeft++;
             }
         }
 
         if (othersLeft == 0)
         {
             ev.setCancelled(true);
-            traitorsWin();
         }
         else if (traitorsLeft > 0)
         {
@@ -426,14 +431,20 @@ public class TraitorsManager extends ZLibComponent implements Listener
     @EventHandler (priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerResurrect(UHPlayerResurrectedEvent ev)
     {
-        for (OfflinePlayer player : UHCReloaded.get().getGameManager().getAlivePlayers())
-        {
-            if (!isTraitor(player.getUniqueId()))
+        RunTask.nextTick(new Runnable() {
+            @Override
+            public void run()
             {
-                gameEnded = false;
-                return;
+                for (OfflinePlayer player : UHCReloaded.get().getGameManager().getAlivePlayers())
+                {
+                    if (!isTraitor(player.getUniqueId()))
+                    {
+                        gameEnded = false;
+                        return;
+                    }
+                }
             }
-        }
+        });
     }
 
     /**
