@@ -375,7 +375,16 @@ public class TraitorsManager extends ZLibComponent implements Listener
                         nonTraitors++;
 
                 if (nonTraitors == 0)
-                    traitorsWin();
+                {
+                    RunTask.later(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            traitorsWin();
+                        }
+                    }, 2 * 20l);
+                }
             }
         });
     }
@@ -402,11 +411,9 @@ public class TraitorsManager extends ZLibComponent implements Listener
             }
         }
 
-        if (othersLeft == 0)
-        {
-            ev.setCancelled(true);
-        }
-        else if (traitorsLeft > 0)
+        ev.setCancelled(true);
+
+        if (traitorsLeft > 0)
         {
             ev.setCancelled(true);
 
@@ -414,13 +421,31 @@ public class TraitorsManager extends ZLibComponent implements Listener
             {
                 currentEndingTeam = team;
 
-                UHCRTraitors.get().separator();
+                final int finalTraitorsLeft = traitorsLeft;
 
-                Bukkit.broadcastMessage(I.tn("{red}There's only one team alive, but {bold}a traitor is hidden within{red}.", "{red}There's only one team alive, but {bold}some traitors are hidden within{red}.", traitorsLeft));
-                Bukkit.broadcastMessage(I.tn("{red}The game will only end when he will be defeated... or defeat all the honest players!", "{red}The game will only end when they will be defeated... or defeat all the honest players!", traitorsLeft));
+                RunTask.later(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        UHCRTraitors.get().separator();
 
-                UHCRTraitors.get().separator();
+                        Bukkit.broadcastMessage(I.tn("{red}There's only one team alive, but {bold}a traitor is hidden within{red}.", "{red}There's only one team alive, but {bold}some traitors are hidden within{red}.", finalTraitorsLeft));
+                        Bukkit.broadcastMessage(I.tn("{red}The game will only end when he will be defeated... or defeat all the honest players!", "{red}The game will only end when they will be defeated... or defeat all the honest players!", finalTraitorsLeft));
+
+                        UHCRTraitors.get().separator();
+                    }
+                }, 2 * 20l);
             }
+        }
+        else if (othersLeft > 0)
+        {
+            RunTask.later(new Runnable() {
+                @Override
+                public void run()
+                {
+                    honestWin();
+                }
+            }, 2 * 20l);
         }
     }
 
@@ -460,6 +485,23 @@ public class TraitorsManager extends ZLibComponent implements Listener
 
             UHCRTraitors.get().separator();
             Bukkit.broadcastMessage(I.t("{red}The game just ended. {bold}Traitors win."));
+            UHCRTraitors.get().separator();
+
+            Titles.broadcastTitle(10, 20 * 10, 30, I.t("{red}Traitors win"), I.t("{red}Sometimes, being vile is a good thing."));
+        }
+    }
+
+    /**
+     * Displays the traitors win message.
+     */
+    private void honestWin()
+    {
+        if (!gameEnded)
+        {
+            gameEnded = true;
+
+            UHCRTraitors.get().separator();
+            Bukkit.broadcastMessage(I.t("{green}The game just ended. {bold}Honest players win."));
             UHCRTraitors.get().separator();
 
             Titles.broadcastTitle(10, 20 * 10, 30, I.t("{red}Traitors win"), I.t("{red}Sometimes, being vile is a good thing."));
