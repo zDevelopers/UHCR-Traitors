@@ -1,0 +1,305 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-27 15:29+0200\n"
+"PO-Revision-Date: 2016-09-27 15:58+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Last-Translator: Amaury Carrade\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.7.5\n"
+"Language: fr_FR\n"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsProTips.java:44
+msgid ""
+"{gray}Speak anonymously with the other traitors using {cc}/f <message>{gray}."
+msgstr ""
+"{gray}Parlez anonymement avec les autres traîtres avec {cc}/f "
+"<message>{gray}."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsProTips.java:45
+msgid ""
+"{gray}You can tell the whole server you're a traitor using {cc}/"
+"reveal{gray}. Beware of the consequences!"
+msgstr ""
+"{gray}Vous pouvez annoncer à tout le serveur que vous êtes un traître en "
+"utilisant {cc}/reveal{gray}. Attention aux conséquences !"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsProTips.java:46
+msgid ""
+"{gray}If someone wasn't online when the traitors were notified, you can tell "
+"them to use {cc}/amiatraitor{gray}."
+msgstr ""
+"{gray}Si quelqu'un n'était pas connecté lorsque les traîtres ont été "
+"annoncés, vous pouvez leur dire d'utiliser "
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:312
+msgid "Traitors"
+msgstr "Traîtres"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:432
+msgid ""
+"{red}There's only one team alive, but {bold}a traitor is hidden within{red}."
+msgid_plural ""
+"{red}There's only one team alive, but {bold}some traitors are hidden "
+"within{red}."
+msgstr[0] ""
+"{red}Il n'y a plus qu'une équipe restante, mais {bold}un traître s'y "
+"cache{red}."
+msgstr[1] ""
+"{red}Il n'y a plus qu'une équipe restante, mais {bold}des traîtres s'y "
+"cachent{red}."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:433
+msgid ""
+"{red}The game will only end when he will be defeated... or defeat all the "
+"honest players!"
+msgid_plural ""
+"{red}The game will only end when they will be defeated... or defeat all the "
+"honest players!"
+msgstr[0] ""
+"{red}Le jeu ne se terminera que lorsqu'il sera vaincu... ou qu'il vaincra "
+"tous les joueurs honnêtes !"
+msgstr[1] ""
+"{red}Le jeu ne se terminera que lorsqu'ils seront vaincus... ou qu'ils "
+"vaincront tous les joueurs honnêtes !"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:487
+msgid "{red}The game just ended. {bold}Traitors win."
+msgstr "{red}Le je est terminé. {bold}Les traîtres gagnent."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:490
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:507
+msgid "{red}Traitors win"
+msgstr "{red}Les traîtres gagnent"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:490
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:507
+msgid "{red}Sometimes, being vile is a good thing."
+msgstr "{red}Parfois, être vil est une bonne chose."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:504
+msgid "{green}The game just ended. {bold}Honest players win."
+msgstr "{green}Le jeu est terminé. {bold}Les honnêtes gens gagnent."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:531
+msgid "{gray}Team: {0}"
+msgstr "{gray}Équipe : {0}"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:534
+msgid "{gray}Traitor identity revealed"
+msgstr "{gray}Identité de traître révélée"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:535
+msgid "{gray}Traitor identity hidden"
+msgstr "{gray}Identité de traître masquée"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:544
+msgid "traitors"
+msgstr "traitres"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:572
+#, java-format
+msgid "{0} died."
+msgstr "{0} est mort."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:598
+msgid "{yellow}Traitors will be notified in {gold}{0}{yellow} second"
+msgid_plural "{yellow}Traitors will be notified in {gold}{0}{yellow} seconds"
+msgstr[0] ""
+"{yellow}Les traîtres vont être informés dans {gold}{0}{yellow} seconde"
+msgstr[1] ""
+"{yellow}Les traîtres vont être informés dans {gold}{0}{yellow} secondes"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:626
+msgid "{red}YOU ARE A TRAITOR. {yellow}Open chat for details."
+msgstr "{red}VOUS ÊTES UN TRAÎTRE. {yellow}Lisez le chat pour les détails."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:628
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCheckCommand.java:59
+msgid "{red}{bold}You are a traitor."
+msgstr "{red}{bold}Vous êtes un traître."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:629
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCheckCommand.java:60
+msgid "{yellow}{bold}Your objective is to win with the other traitors."
+msgstr "{yellow}{bold}Votre objectif est de gagner avec les autres traîtres."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:630
+msgid ""
+"{yellow}You are now against your team, but they don't know this! Use the "
+"secret to your advantage."
+msgstr ""
+"{yellow}Vous êtes désormais contre votre coéquipiers mais ils ne le savent "
+"pas ! Utilisez ce secret à votre avantage."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:634
+msgid "{yellow}The traitors only know themselves through a fake name."
+msgstr "{yellow}Les traitres ne se connaissent que via un faux nom."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:635
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCheckCommand.java:64
+msgid "{yellow}Your traitor name is {gold}{0}{yellow}."
+msgstr "{yellow}Votre nom de traître est {gold}{0}{yellow}."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:639
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCheckCommand.java:69
+msgid "{darkgreen}{bold}You are not a traitor."
+msgstr "{darkgreen}{bold}Vous n'êtes pas un traître."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/TraitorsManager.java:640
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCheckCommand.java:70
+msgid ""
+"{green}Your objective is to win with your team. But beware, it's not the "
+"case of all of your teammates..."
+msgstr ""
+"{green}Votre objectif est de gagner avec votre équipe. Mais attention, ce "
+"n'est pas le cas de tous vos coéquipiers..."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/traitors/Traitor.java:90
+msgid "{red}{bold}{0} is a traitor!"
+msgstr "{red}{bold}{0} est un traître !"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCountCommand.java:21
+msgid "teams count"
+msgstr "nombre d'équipes"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCountCommand.java:21
+msgid "{green}Current traitors count: {darkgreen}{0}{green}."
+msgstr "{green}Nombre de traîtres : {darkgreen}{0}{green}."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCountCommand.java:32
+msgid "the teams count"
+msgstr "le nombre d'équipes"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCountCommand.java:32
+msgid "{green}Traitors count updated to {darkgreen}{0}{green}."
+msgstr "{green}Le nombre de traîtres est désormais {darkgreen}{0}{green}."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCountCommand.java:36
+#, java-format
+msgid "{0} is not a valid number."
+msgstr "{0} n'est pas un nombre valide."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCountCommand.java:40
+msgid ""
+"You cannot update the traitors count as the game is started and traitors are "
+"already generated."
+msgstr ""
+"Vous ne pouvez changer le nombre de traîtres car le jeu est démarré et les "
+"traîtres ont déjà été générés."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:25
+msgid "You are not a traitor."
+msgstr "Vous n'êtes pas un traître."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:28
+msgid "You already revealed yourself as a traitor."
+msgstr "Vous vous êtes déjà révélés comme étant un traître."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:35
+msgid ""
+"{darkred}{bold}Warning! {red}Revealing yourself as a traitor will have the "
+"following consequences:"
+msgstr ""
+"{darkred}{bold}Attention ! {red}Vous révéler publiquement comme un traître "
+"aura les conséquences suivantes :"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:36
+msgid "{gray}- {red}all players will be notified you're a traitor;"
+msgstr ""
+"{gray}- {red}tous les joueurs seront notifiés que vous êtes un traître ;"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:37
+msgid "{gray}- {red}your nickname color will turn to red;"
+msgstr "{gray}- {red}votre nom tournera au rouge vif ;"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:38
+msgid "{gray}- {red}you'll be {0} instead of {1} in the traitors chat."
+msgstr "{gray}- {red}vous serez {0} au lieu de {1} dans le chat des traîtres."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:43
+msgid "Click here to confirm"
+msgstr "Cliquez ici pour confirmer"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsRevealCommand.java:46
+msgid "Click here to reveal yourself as a traitor"
+msgstr "Cliquez ici pour vous révéler comme étant un traître"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCheckCommand.java:51
+msgid "Traitors are not revealed yet!"
+msgstr "Les traîtres ne sont pas encore révélés !"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsCheckCommand.java:65
+msgid "{yellow}Use {cc}/f <message>{yellow} to speak with the other traitors."
+msgstr ""
+"{yellow}Utilisez {cc}/f <message>{yellow} pour parler avec les autres "
+"traîtres."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsExternalChatCommand.java:51
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsChatCommand.java:24
+msgid ""
+"You cannot use the traitors chat because traitors were not notified yet."
+msgstr ""
+"Vous ne pouvez utiliser le chat des traîtres car les traîtres n'ont pas "
+"encore été révélés."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsChatCommand.java:28
+msgid "You cannot use the traitors chat because you are not a traitor."
+msgstr ""
+"Vous ne pouvez utiliser le chat des traîtres car vous n'êtes pas un traître."
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:69
+msgid "Traitors are not public yet!"
+msgstr "Les traîtres ne sont pas encore annoncés !"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:78
+#, java-format
+msgid "{0} traitor"
+msgid_plural "{0} traitors"
+msgstr[0] "{0} traître"
+msgstr[1] "{0} traîtres"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:86
+msgid "(display identities)"
+msgstr "(afficher les identités)"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:89
+msgid "{red}{bold}Displays the traitors identities"
+msgstr "{red}{bold}Afficher les identités des traîtres"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:90
+msgid "{darkred}Warning! {red}This can be a game breaker!"
+msgstr "{darkred}Attention ! {red}Les afficher peut casser votre jeu !"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:118
+msgid "{white}Team {0}"
+msgstr "{white}Équipe {0}"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:119
+msgid "{gray}{0} player"
+msgid_plural "{gray}{0} players"
+msgstr[0] "{gray}{0} joueur"
+msgstr[1] "{gray}{0} joueurs"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:127
+#, java-format
+msgid "(was {0})"
+msgstr "(était {0})"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:131
+#, java-format
+msgid "(name: {0})"
+msgstr "(nom : {0})"
+
+#: src/main/java/eu/carrade/amaury/UHCRTraitors/commands/traitors/TraitorsListCommand.java:136
+msgid "{gray}({darkred}DEAD{gray})"
+msgstr "{gray}({darkred}MORT{gray})"
